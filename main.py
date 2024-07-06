@@ -23,8 +23,8 @@ class MathNotes():
         self.canvas.bind("<Button-1>", self.start_drawing)
         self.canvas.bind("<B1-Motion>", self.paint)
         self.canvas.bind("<ButtonRelease-1>", self.reset)
-        self.root.bind("<Command-Z>", self.undo)
-        self.root.bind("<Return>", self.calculate)
+        self.root.bind("<Command-Z>", self.command_undo)
+        self.root.bind("<Return>", self.command_calculate)
 
         self.current_action = []
         self.actions = []
@@ -42,7 +42,7 @@ class MathNotes():
 
         self.font = tkFont.Font(family="Noteworthy", size = 100)
 
-        self.client = OpenAI(api_key = 'ENTER YOUR OPENAI API KEY HERE')
+        self.client = OpenAI(api_key = 'YOUR_API_KEY')
 
     def start_drawing(self, event):
         self.current_action = []
@@ -94,12 +94,12 @@ class MathNotes():
         equals_y = last_coords[3]
 
         x_start = equals_x + 70
-        y_start = equals_y - 70
+        y_start = equals_y - 20
 
-        self.canvas.create_text(x_start, y_start, text = answer, font = self.font, fill = 'white')
+        self.canvas.create_text(x_start, y_start, text = answer, font = self.font, fill = '#11ff00')
 
         font = ImageFont.load_default(size = 100)
-        self.draw.text((x_start, y_start), answer, font = font, fill = '#FF9500')
+        self.draw.text((x_start, y_start - 50), answer, font = font, fill = '#11ff00')
 
     def calculate(self):
         def encode_image(image):
